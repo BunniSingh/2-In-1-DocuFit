@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+.studio-grid-bg {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .studio-grid-bg,
+.studio-grid-bg-dark {
+  background-color: #0b0f19;
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@layer utilities {
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 0mm;
+    }
+
+    html, body {
+      background: #ffffff !important;
+      color: #000000 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Hide everything on screen except printSheet */
+    .no-print,
+    header,
+    footer,
+    #crop-modal-overlay,
+    .upload-section-container,
+    .status-badge-container,
+    .app-card-wrapper {
+      display: none !important;
+    }
+
+    #printSheet {
+      display: block !important;
+      margin: 0 auto !important;
+      padding-top: var(--print-top-margin, 20mm) !important;
+      box-shadow: none !important;
+      width: 210mm !important;
+      min-height: 297mm !important;
+      box-sizing: border-box !important;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "प्रकाश प्रिंट स्टूडियो - Smart Card Crop & Print Tool",
+  "description": "Smart 4-corner perspective crop, image enhancer, A4 print layout studio, and target-size photo & PDF compressor.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
