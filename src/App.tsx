@@ -55,7 +55,13 @@ const defaultPrintSettings: PrintSettings = {
 };
 
 export default function App() {
-  const [language, setLanguage] = useState<Language>('hi');
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('prakash_lang') as Language | null;
+      if (saved === 'hi' || saved === 'en') return saved;
+    }
+    return 'en';
+  });
   const isHi = language === 'hi';
 
   const [theme, setTheme] = useState<ThemeMode>(() => {
@@ -79,6 +85,15 @@ export default function App() {
       // ignore
     }
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    try {
+      localStorage.setItem('prakash_lang', language);
+    } catch {
+      // ignore
+    }
+  }, [language]);
 
   const [activeNavTab, setActiveNavTab] = useState<NavTab>('card-print');
 

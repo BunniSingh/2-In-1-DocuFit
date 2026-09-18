@@ -436,7 +436,7 @@ export const PrintSheet: React.FC<PrintSheetProps> = ({
                 onClick={() => onUpdateSettings({ topMarginMm: 20 })}
                 className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer font-bold text-slate-700 dark:text-slate-200"
               >
-                20mm (डिफ़ॉल्ट)
+                {isHi ? '20mm (डिफ़ॉल्ट)' : '20mm (Default)'}
               </button>
               <button
                 type="button"

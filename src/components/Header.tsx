@@ -104,13 +104,20 @@ export const Header: React.FC<HeaderProps> = ({
               type="button"
               id="theme-toggle-btn"
               onClick={onToggleTheme}
-              className="p-2 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
+              aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer shadow-2xs"
               title={isDark ? (isHi ? 'लाइट मोड चालू करें' : 'Switch to Light Mode') : (isHi ? 'डार्क मोड चालू करें' : 'Switch to Dark Mode')}
             >
               {isDark ? (
-                <Sun className="w-4 h-4 text-amber-400" />
+                <>
+                  <Sun className="w-4 h-4 text-amber-400" />
+                  <span className="hidden xs:inline text-slate-200">{isHi ? 'लाइट' : 'Light'}</span>
+                </>
               ) : (
-                <Moon className="w-4 h-4 text-slate-600" />
+                <>
+                  <Moon className="w-4 h-4 text-slate-700" />
+                  <span className="hidden xs:inline text-slate-700">{isHi ? 'डार्क' : 'Dark'}</span>
+                </>
               )}
             </button>
 
