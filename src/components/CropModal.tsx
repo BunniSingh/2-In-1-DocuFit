@@ -19,7 +19,8 @@ interface CropModalProps {
   isOpen: boolean;
   onClose: () => void;
   imageSrc: string;
-  cardSide: 'front' | 'back';
+  cardSide: string;
+  cardLabel?: string;
   language: Language;
   onCropComplete: (croppedDataUrl: string, points: Point[]) => void;
 }
@@ -29,6 +30,7 @@ export const CropModal: React.FC<CropModalProps> = ({
   onClose,
   imageSrc,
   cardSide,
+  cardLabel,
   language,
   onCropComplete,
 }) => {
@@ -330,17 +332,19 @@ export const CropModal: React.FC<CropModalProps> = ({
         <div className="px-4 sm:px-5 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 flex-shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs border border-blue-200 dark:border-blue-800 flex-shrink-0">
-              {cardSide === 'front' ? '1' : '2'}
+              {cardLabel ? cardLabel.replace(/[^0-9]/g, '') || '#' : (cardSide === 'front' ? '1' : '2')}
             </div>
             <div>
               <h2 className="text-xs sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
-                {cardSide === 'front'
-                  ? isHi
-                    ? 'सामने का भाग (Front) - 4-कॉर्नर स्मार्ट क्रॉप'
-                    : 'Front Side - 4-Corner Perspective Crop'
-                  : isHi
-                    ? 'पीछे का भाग (Back) - 4-कॉर्नर स्मार्ट क्रॉप'
-                    : 'Back Side - 4-Corner Perspective Crop'}
+                {cardLabel
+                  ? `${cardLabel} - ${isHi ? '4-कॉर्नर स्मार्ट क्रॉप' : '4-Corner Perspective Crop'}`
+                  : cardSide === 'front'
+                    ? isHi
+                      ? 'सामने का भाग (Front) - 4-कॉर्नर स्मार्ट क्रॉप'
+                      : 'Front Side - 4-Corner Perspective Crop'
+                    : isHi
+                      ? 'पीछे का भाग (Back) - 4-कॉर्नर स्मार्ट क्रॉप'
+                      : 'Back Side - 4-Corner Perspective Crop'}
               </h2>
               <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 hidden xs:block">
                 {isHi

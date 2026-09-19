@@ -5,7 +5,8 @@ import { Language } from '../types';
 interface CameraCaptureModalProps {
   isOpen: boolean;
   onClose: () => void;
-  cardSide: 'front' | 'back';
+  cardSide: string;
+  cardLabel?: string;
   language: Language;
   onCapture: (dataUrl: string) => void;
 }
@@ -14,6 +15,7 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
   isOpen,
   onClose,
   cardSide,
+  cardLabel,
   language,
   onCapture,
 }) => {
@@ -98,13 +100,15 @@ export const CameraCaptureModal: React.FC<CameraCaptureModalProps> = ({
               <Camera className="w-4 h-4" />
             </div>
             <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-              {cardSide === 'front'
-                ? isHi
-                  ? 'सामने का भाग (Front) फ़ोटो खींचें'
-                  : 'Capture Front Side Photo'
-                : isHi
-                  ? 'पीछे का भाग (Back) फ़ोटो खींचें'
-                  : 'Capture Back Side Photo'}
+              {cardLabel
+                ? `${cardLabel} - ${isHi ? 'फ़ोटो खींचें' : 'Capture Photo'}`
+                : cardSide === 'front'
+                  ? isHi
+                    ? 'सामने का भाग (Front) फ़ोटो खींचें'
+                    : 'Capture Front Side Photo'
+                  : isHi
+                    ? 'पीछे का भाग (Back) फ़ोटो खींचें'
+                    : 'Capture Back Side Photo'}
             </h2>
           </div>
           <button

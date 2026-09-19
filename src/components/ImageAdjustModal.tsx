@@ -7,7 +7,8 @@ interface ImageAdjustModalProps {
   isOpen: boolean;
   onClose: () => void;
   imageSrc: string;
-  cardSide: 'front' | 'back';
+  cardSide: string;
+  cardLabel?: string;
   language: Language;
   initialAdjustments?: ImageAdjustments;
   currentAdjustments?: ImageAdjustments;
@@ -19,6 +20,7 @@ export const ImageAdjustModal: React.FC<ImageAdjustModalProps> = ({
   onClose,
   imageSrc,
   cardSide,
+  cardLabel,
   language,
   initialAdjustments,
   currentAdjustments,
@@ -102,13 +104,15 @@ export const ImageAdjustModal: React.FC<ImageAdjustModalProps> = ({
             </div>
             <div>
               <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-                {cardSide === 'front'
-                  ? isHi
-                    ? 'सामने का भाग - फ़ोटो व टेक्स्ट साफ़ करें'
-                    : 'Front Side - Document & Text Cleanup'
-                  : isHi
-                    ? 'पीछे का भाग - फ़ोटो व टेक्स्ट साफ़ करें'
-                    : 'Back Side - Document & Text Cleanup'}
+                {cardLabel
+                  ? `${cardLabel} - ${isHi ? 'फ़ोटो व टेक्स्ट साफ़ करें' : 'Document & Text Cleanup'}`
+                  : cardSide === 'front'
+                    ? isHi
+                      ? 'सामने का भाग - फ़ोटो व टेक्स्ट साफ़ करें'
+                      : 'Front Side - Document & Text Cleanup'
+                    : isHi
+                      ? 'पीछे का भाग - फ़ोटो व टेक्स्ट साफ़ करें'
+                      : 'Back Side - Document & Text Cleanup'}
               </h2>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 {isHi

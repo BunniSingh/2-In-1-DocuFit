@@ -22,7 +22,42 @@ export interface CardState {
   fileName: string | null;
 }
 
-export type PrintLayoutType = 'side-by-side' | 'stacked' | 'multi-copies' | 'front-only' | 'back-only';
+export interface CardMargin {
+  topMm: number; // Top margin in millimeters
+  leftMm: number; // Left margin in millimeters
+}
+
+export interface CardPairMargin {
+  topMm: number; // Front card top margin in mm
+  leftMm: number; // Front card left margin in mm
+  gapMm: number; // Gap between front and back in mm (default 8)
+  independentBack: boolean; // if true, back card uses independent backTopMm & backLeftMm
+  backTopMm: number;
+  backLeftMm: number;
+}
+
+export interface CardPairItem {
+  id: string; // unique identifier e.g. 'pair-1', 'pair-2', 'pair-3', 'pair-4'
+  label: string; // e.g. 'Pair 1', 'Card Pair 1 (Aadhaar)'
+  front: CardState;
+  back: CardState;
+  margin: CardPairMargin;
+}
+
+export interface CardItem {
+  id: string; // unique identifier e.g. 'card-1'
+  label: string; // e.g. 'Card 1 (Front)', 'Card 2 (Back)'
+  state: CardState;
+  margin: CardMargin;
+}
+
+export interface RenderCardItem extends CardItem {
+  pairId: string;
+  side: 'front' | 'back';
+  pairLabel: string;
+}
+
+export type PrintLayoutType = 'side-by-side' | 'stacked' | 'multi-copies' | 'front-only' | 'back-only' | 'custom-margins';
 
 export type CardSizePreset = 'standard' | 'lamination' | 'custom';
 
@@ -37,6 +72,7 @@ export interface PrintSettings {
   showCutGuides: boolean;
   showScissors: boolean;
   grayscalePrint: boolean;
+  autoCenterOddCard?: boolean; // Align single/odd card in horizontal center (62mm)
 }
 
 export type Language = 'hi' | 'en';
